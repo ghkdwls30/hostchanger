@@ -64,7 +64,7 @@ namespace HostChanger
             comboBox1.Items.Add("전체");
             comboBox1.SelectedIndex = 0;
 
-            BindGridView();            
+            BindGridView();
             ReadHostsFIle();            
         }
 
@@ -95,7 +95,8 @@ namespace HostChanger
 
         private void ReadHostsFIle()
         {
-         
+
+            DelteBlankLine();
 
             string[] lines = System.IO.File.ReadAllLines(@HOSTS_FILE_PATH);
             Regex regex = new Regex("^.*(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\s|\t)+\\S+(((\\s|\t)+#\\S*){1,2}|)$");
@@ -198,15 +199,15 @@ namespace HostChanger
             }
 
             
-            if (e.ColumnIndex != 0 && e.ColumnIndex != 7)
+            if (e.ColumnIndex != 0 && e.ColumnIndex != 7 && e.ColumnIndex != 6 && e.ColumnIndex != 5)
             {
                 if (!"A".Equals(dataGridView1.Rows[e.RowIndex].Cells["Status"].Value) &&
                     !"D".Equals(dataGridView1.Rows[e.RowIndex].Cells["Status"].Value) &&
-                    !"ACTIVE".Equals(dataGridView1.Rows[e.RowIndex].Cells["Status"].Value) )
+                    !"ACTIVE".Equals(dataGridView1.Rows[e.RowIndex].Cells["Status"].Value))
                 {
                     dataGridView1.Rows[e.RowIndex].Cells["Status"].Value = "U";
                     ((DataGridViewImageCell)dataGridView1.Rows[e.RowIndex].Cells["Image"]).Value = Properties.Resources.update;
-                }
+                }               
 
             }
 
@@ -545,7 +546,7 @@ namespace HostChanger
 
               for( int i = 0; i < addRows.Count; i++) {
                 DataGridViewRow row = addRows[i];
-                row.Cells["Status"].Value = "A";
+                row.Cells["Status"].Value = "";
                 row.Cells["Image"].Value = Properties.Resources.check;
                 row.Cells["Line"].Value = indexs[i];
               }
@@ -561,6 +562,8 @@ namespace HostChanger
                     dataGridView1.Rows.RemoveAt(row.Index);
                 }
             }
+
+            //ReadHostsFIle();
         }
 
         // 추가
