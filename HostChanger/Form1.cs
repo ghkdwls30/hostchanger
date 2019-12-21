@@ -157,7 +157,7 @@ namespace HostChanger
                         }
                         else
                         {
-                            string preStr = line.Substring(0, line.Length - 1);
+                            string preStr = line.Substring(0, line.Length);
                             string[] preStrArray = GetPreStrArray(preStr);
                             row[1] = preStrArray[0];
                             row[2] = preStrArray[1];
@@ -188,6 +188,8 @@ namespace HostChanger
         {            
             TotalCheckBoxes = dataGridView1.RowCount;
             TotalCheckedCheckBoxes = 0;
+
+            dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter;
         }
 
         private void dgvSelectAll_CellValueChanged(object sender, DataGridViewCellEventArgs e)
